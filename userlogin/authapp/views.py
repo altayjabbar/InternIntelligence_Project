@@ -17,7 +17,7 @@ class LoginView(APIView):
             password = serializer.validated_data['password']
             user = authenticate(request, username=username, password=password)
             if user:
-                refresh = RefreshToken.for_user(user)  # Token yaratmaq
+                refresh = RefreshToken.for_user(user)  
                 return Response({
                     "success": True,
                     "message": "Login successful",
@@ -34,7 +34,7 @@ class LogoutView(APIView):
         try:
             refresh_token = request.data["refresh"]
             token = RefreshToken(refresh_token)
-            token.blacklist()  # Token-i deaktiv edirik
+            token.blacklist()  
             return Response({"success": True, "message": "Logout successful"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"success": False, "message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
